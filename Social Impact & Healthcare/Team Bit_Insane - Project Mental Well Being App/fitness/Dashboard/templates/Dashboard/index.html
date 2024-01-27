@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health Support</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: Arial, sans-serif;
+    }
+    .navbar {
+      background-color: #FFDAB9;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      margin-left: 20px;
+    }
+    .navbar a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      background-color: #dda07a;
+    }
+    section {
+      padding: 60px 80px;
+      background-color: #FFDAB9;
+      color: #333;
+      min-height: 100vh;
+    }
+    #logsign{
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 37%;
+        padding: 1%;
+    }
+    #lg_button,
+    #reg_button {
+    background-color: #ffdab9; /* Peach background color */
+    color: #333; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    margin: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px; /* Add rounded corners */
+    }
+
+    #lg_button:hover,
+    #reg_button:hover {
+    background-color: #dda07a; /* Darker peach color on hover */
+    }
+    .home {
+      background-image: url('path-to-your-welcoming-image.jpg');
+      background-size: cover;
+      margin-left: 2px;
+    }
+    .dashboard, .profile, .community, .chatbot {
+      background-color: #fff0e6;
+    }
+    .about{
+        background-color:  #dda07a;
+        min-height: 50vh;
+    }
+    /* Additional styles for the "Profile" link */
+    .navbar a#profile-link {
+      margin-right: 20px;
+      margin-left: auto; /* Push the "Profile" link to the rightmost end */
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      width: 50%;
+    }
+    /* Styles for the "x" close button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    /* Additional styles for the login and register links in the profile modal */
+    .modal-content a {
+      color: #333;
+      text-decoration: underline;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="logo">
+    <img src="{% static 'Dashboard/logo.png' %}" alt="Logo" height="50">
+  </div>
+  <a href="#home">Home</a>
+  <a href="#community">Community</a>
+  <a href="{% url 'chatbot:chatbot' %}">Chatbot</a>
+  <a href="#about">About Us</a>
+  <a id="profile-link" onclick="openProfileModal()">Profile</a>
+</div>
+
+<section id="home" class="home">
+  <h1>Welcome to Our Mental Health Support Website</h1>
+  <p>This website is dedicated to providing support and resources for mental well-being.</p>
+</section>
+
+
+
+<!-- Modal for the Profile -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeProfileModal()">&times;</span>
+      {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}!</p>
+        <!-- Add additional user profile information here -->
+      {% else %}
+        <h2 style="margin-left: 20%;">Not Registered yet sign up below (or login)</h2>
+       <div id="logsign">
+        <div> <a href="{% url 'chatbot:login'%}"><button id="lg_button">Login</button></a></div>
+       <div> <a href="{% url 'chatbot:register'%}"><button id="reg_button">sign up</button></a></div>
+       </div>
+      {% endif %}
+    </div>
+</div>
+
+<section id="community" class="community">
+  <h1>Community</h1>
+  <p>A space for sharing experiences and supporting each other. Join the conversation.</p>
+</section>
+
+<section id="about" class="about">
+    <h1>About Us</h1>
+    <p>Learn about our mission, values, and the team behind this initiative.</p>
+  </section>
+  
+<!-- JavaScript to control the modal -->
+<script>
+  function openProfileModal() {
+    document.getElementById('profileModal').style.display = 'block';
+  }
+
+  function closeProfileModal() {
+    document.getElementById('profileModal').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
