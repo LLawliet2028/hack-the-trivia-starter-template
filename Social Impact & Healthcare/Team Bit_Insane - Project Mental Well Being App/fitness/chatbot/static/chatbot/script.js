@@ -4,7 +4,7 @@ const chatcontainer = document.querySelector(".chat-container");
 const deletebutton = document.querySelector("delete-btn");
 const themebutton = document.querySelector("theme-btn");
 
-const API_KEY = "AIzaSyDGpvfeJqypX7FPFF-Lj4HrmYerU8KL1ps"
+const API_KEY = "your api key"
 let UserText = null;
 
 const loadDataFromLocalStorage = () =>{
