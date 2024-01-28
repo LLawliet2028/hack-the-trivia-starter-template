@@ -1,12 +1,10 @@
-const { response } = require("express");
-
 const chatINput = document.querySelector(".chat-input");
 const sendButton = document.querySelector(".send-btn");
 const chatcontainer = document.querySelector(".chat-container");
 const deletebutton = document.querySelector("delete-btn");
 const themebutton = document.querySelector("theme-btn");
 
-const API_KEY = "MYAPIKEY"
+const API_KEY = "AIzaSyDGpvfeJqypX7FPFF-Lj4HrmYerU8KL1ps"
 let UserText = null;
 
 const loadDataFromLocalStorage = () =>{
@@ -14,10 +12,9 @@ const loadDataFromLocalStorage = () =>{
     document.body.classList.toggle("light-mode", themeColor === "light mode");
     themebutton.innerText = document.body.classList.contains("light-mode") ? "dark mode" : "light mode";
 
-    const defaultText = `<div class =default-text>
-                            <h1>Health Bot</h1>
-                        </div>`;
-
+    const defaultText = <div class ="default-text">
+        <h1>Palm Bot</h1>
+    </div>
     chatcontainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
     chatcontainer.scrollTo(0, chatcontainer.scrollHeight);
 };
@@ -52,7 +49,6 @@ const getchatresponse = async(inchatdiv) => {
             candidate_count: 1,
         }),
     };
-
     try{
         const response = await fetch (API_ENDPOINT, requestOptions);
         const data = await response.json();
@@ -74,7 +70,7 @@ const getchatresponse = async(inchatdiv) => {
             data.candidates[0].content
         ){
             inchatdiv.querySelector(".typing-animation").remove();
-            const message = data.candidates[0].content;
+            const message = data.ca [0].content;
             const messageElement = document.createElement("p");
             messageElement.textContent = message;
             inchatdiv.querySelector(".chat-details").appendChild(messageElement);
@@ -85,16 +81,13 @@ const getchatresponse = async(inchatdiv) => {
     } catch (error) {
         inchatdiv.querySelector(".typing-animation").remove();
         const errorElement = document.createElement("p");
-        errorElement.classList.add("error");
         errorElement.textContent = "Oops ! something went wrong while retrieving the response. Please try again";
         inchatdiv.querySelector(".chat-details").appendChild(errorElement);
 
     }
-
-    localStorage.setItem("all-chats", chatContainer.innerHTML);
-    chatContainer.scrollTo(0,chatContainer.scrollHeight);
+    localStorage.serItem("all-chats, chatContainer.innerHTML");
+    chatcontainer.scrollTo(0,chatcontainer.scrollHeight);
 };
-
 const copyResponse = (copyBtn) => {
     const responseTextElement = copyBtn.parentElement.querySelector("p");
     navigator.clipboard.writeText(responseTextElement.textContent);
@@ -120,13 +113,12 @@ const showTypingAnimation = () => {
     chatcontainer.scrollTo(0, chatcontainer.scrollHeight);
     getchatresponse(inchatdiv);
 };
-
 const handleoutgoingchat = () => {
-    UserText = chatInput.value.trim();
+    UserText = chatINput.value.trim();
     if(!UserText) return;
 
-    chatInput.value = "";
-    chatInput.style.height = `${initialinputHeight}px` ;
+    chatINput.value = "";
+    chatINput.style.height = '${initialinputHeight}px' ;
 
     const html = <div class = "chat-content">
     <div class = "chat-details">
@@ -156,11 +148,11 @@ themebutton.addEventListener("click", () => {
     themebutton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 });
 
-const initialinputHeight = chatInput.scrollHeight;
+const initialinputHeight = chatINput.scrollHeight;
 
 chatINput.addEventListener("input", () => {
-    chatINput.style.height = `${initialinputHeight}`;
-    chatINput.style.height  = `${chatInput.scrollHeight}px`;
+    chatINput.style.height = '${initialinputHeight}';
+    chatINput.style.height  = '${chatInput.scrollHeight}px';
 });
 
 chatINput.addEventListener("keydown",(e) => {
